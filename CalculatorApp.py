@@ -17,13 +17,46 @@ def button_clear():
 def button_add():
     first_number = entry.get()
     global f_num
+    global math
+    math = "addition"
     f_num = int(first_number)
     entry.delete(0, tk.END)
 
 def button_equal():
     second_number = entry.get()
     entry.delete(0, tk.END)
-    entry.insert(0, f_num + int(second_number))
+    if math == "addition":
+        entry.insert(0, f_num + int(second_number))
+    if math == "subtraction":
+        entry.insert(0, f_num - int(second_number))
+    if math == "multiplication":
+        entry.insert(0, f_num * int(second_number))
+    if math == "division":
+        entry.insert(0, f_num / int(second_number))
+
+def button_subtract():
+    first_number = entry.get()
+    global f_num
+    global math
+    math = "subtraction"
+    f_num = int(first_number)
+    entry.delete(0, tk.END)
+
+def button_multiply():
+    first_number = entry.get()
+    global f_num
+    global math
+    math = "multiplication"
+    f_num = int(first_number)
+    entry.delete(0, tk.END)
+
+def button_divide():
+    first_number = entry.get()
+    global f_num
+    global math
+    math = "division"
+    f_num = int(first_number)
+    entry.delete(0, tk.END)
 
 button_1 = tk.Button(window, text="1", padx=40, pady=20, command=lambda: button_click(1))
 button_2 = tk.Button(window, text="2", padx=40, pady=20, command=lambda: button_click(2))
@@ -39,6 +72,10 @@ button_0 = tk.Button(window, text="0", padx=40, pady=20, command=lambda: button_
 button_add = tk.Button(window, text="+", padx=39, pady=20, command=button_add)
 button_equal = tk.Button(window, text="=", padx=91, pady=20, command=button_equal)
 button_clear = tk.Button(window, text="Clear", padx=79, pady=20, command=button_clear)
+
+button_subtract = tk.Button(window, text="-", padx=41, pady=20, command=button_subtract)
+button_multiply = tk.Button(window, text="*", padx=40, pady=20, command=button_multiply)
+button_divide = tk.Button(window, text="/", padx=41, pady=20, command=button_divide)
 
 button_1.grid(row=3, column=0)
 button_2.grid(row=3, column=1)
@@ -58,7 +95,9 @@ button_clear.grid(row=4, column=1, columnspan=2)
 button_add.grid(row=5, column=0)
 button_equal.grid(row=5, column=1, columnspan=2)
 
-
+button_subtract.grid(row=6, column=0)
+button_multiply.grid(row=6, column=1)
+button_divide.grid(row=6, column=2)
 
 
 window.mainloop()
