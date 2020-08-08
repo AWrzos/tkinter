@@ -23,6 +23,29 @@ c = conn.cursor()
 #         zipcode integer
 #         )""")
 
+# Stworzenie funkcji do usuwania rekordów
+def delete():
+    # Tworzenie bazy danych lub połączenie do istniejącej
+    conn = sqlite3.connect("address_book.db")
+
+    # Tworzenie kursora
+    c = conn.cursor()
+
+
+    # Usuwanie rekordu
+    c.execute("DELETE from addresses WHERE oid = " + delete_box.get())
+
+
+    # Zatwierdzenie zmian
+    conn.commit()
+
+    # Zamykanie połączenia z bazą danych
+    conn.close()
+
+
+
+
+
 # Stworzenie funkcji submit
 def submit():
     # Tworzenie bazy danych lub połączenie do istniejącej
@@ -69,10 +92,10 @@ def query():
 
     print_records = ""
     for record in records:
-        print_records += str(record) + "\n"
+        print_records += str(record[0]) + " " + str(record[1]) + " " + "\t" + str(record[5]) + "\n"
 
     query_label = Label(window, text=print_records)
-    query_label.grid(row=7, column=0, columnspan=2)
+    query_label.grid(row=10, column=0, columnspan=2)
 
 
 
@@ -86,7 +109,7 @@ def query():
 
 # Stworzenie pól tekstowych
 f_name = Entry(window, width=30)
-f_name.grid(row=0, column=1, padx=20)
+f_name.grid(row=0, column=1, padx=20, pady=(10, 0))
 l_name = Entry(window, width=30)
 l_name.grid(row=1, column=1)
 address = Entry(window, width=30)
@@ -95,12 +118,13 @@ city = Entry(window, width=30)
 city.grid(row=3, column=1)
 zipcode = Entry(window, width=30)
 zipcode.grid(row=4, column=1)
-
+delete_box = Entry(window, width=30)
+delete_box.grid(row=8, column=1, pady=5)
 
 
 # Stworzenie etykiet do pól tekstowych
 f_name_label = Label(window, text="First Name")
-f_name_label.grid(row=0, column=0)
+f_name_label.grid(row=0, column=0, pady=(10, 0))
 l_name_label = Label(window, text="Last Name")
 l_name_label.grid(row=1, column=0)
 address_label = Label(window, text="Address")
@@ -109,7 +133,8 @@ city_label = Label(window, text="City")
 city_label.grid(row=3, column=0)
 zipcode_label = Label(window, text="Zipcode")
 zipcode_label.grid(row=4, column=0)
-
+delete_box_label = Label(window, text="Numer ID do usunięcia")
+delete_box_label.grid(row=8, column=0, pady=5)
 
 # Stworzenie przycisków zatwierdzania
 submit_button = Button(window, text="Dodaj rekord do bazy danych", command=submit)
@@ -117,7 +142,11 @@ submit_button.grid(row=5, column=0, columnspan=2, pady=10, padx=10, ipadx=100)
 
 # Stworzenie przycisku przeszukania bazy danych
 query_btn = Button(window, text="Pokaż rekordy", command=query)
-query_btn.grid(row=6,column=0, columnspan=2, pady=10, padx=10, ipadx=137)
+query_btn.grid(row=6,column=0, columnspan=2, pady=10, padx=10, ipadx=140)
+
+# Stworzenie przycisku do usuwania
+delete_btn = Button(window, text="Usuń rekord", command=delete)
+delete_btn.grid(row=9,column=0, columnspan=2, pady=10, padx=10, ipadx=145)
 
 
 # Zatwierdzenie zmian
